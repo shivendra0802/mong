@@ -1,12 +1,10 @@
-from sqliteapp.models import  Customer
-from djongo import models
+from django.db import models
 
-# Create your models here.
-class Student(models.Model):
-    tag = models.ArrayField()
+from mongoengine import Document, fields, DynamicDocument, EmbeddedDocument
+from datetime import datetime
+from mongoengine import connect, disconnect
+connect('mydb')
 
-    def __str__(self):
-        return self.tag
-
-
-
+class Tag(Document):
+    customer_id = fields.StringField()
+    tag_cus = fields.ListField(fields.StringField(max_length=40))
